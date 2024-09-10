@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>E-commerce website</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+        <style>
+        /* Additional styling for cart items */
+        #cart table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        #cart table th, #cart table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        #cart table th {
+            background-color: #f4f4f4;
+        }
+        .remove-btn {
+            cursor: pointer;
+            color: red;
+            font-size: 20px;
+        }
+        .remove-btn:hover {
+            color: darkred;
+        }
+    </style>
+    </head>
+    <body>
+
+        <section id="header">
+            <a href="#"><img src="img/logo.png" class="logo" alt></a>
+            <div>
+                <ul id="navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a class="active" href="cart.html"><i
+                                class="fa fa-shopping-bag"></i></a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="page-header" class="about-header">
+            <h2>#order_now</h2>
+            <p>ORDER NOW AND BECOME THE PART OF THE FAMILY!!</p>
+        </section>
+
+        <section id="cart" class="section-p1">
+            <table width="100%" id="cart-table">
+                <thead>
+                    <tr>
+                        <td>Remove</td>
+                        <td>Image</td>
+                        <td>Products</td>
+                        <td>Price</td>
+                        <td>Quantity</td>
+                        <td>Subtotal</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Cart items will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="cart-add" class="section-p1">
+            <div id="coupon">
+                <h3>Apply Coupon</h3>
+                <div>
+                    <input type="text" id="coupon-code"
+                        placeholder="Enter your coupon">
+                    <button class="normal"
+                        onclick="applyCoupon()">Apply</button>
+                </div>
+            </div>
+            <div id="subtotal">
+                <h3>Cart Totals</h3>
+                <table>
+                    <tr>
+                        <td>Cart Subtotal</td>
+                        <td id="cart-subtotal">$0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Shipping</td>
+                        <td>Free</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong id="cart-total">$0.00</strong></td>
+                    </tr>
+                </table>
+                <form id="esewa-form" action="https://esewa.com.np/epay/main"
+                    method="POST" style="display: none;">
+                    <input type="hidden" name="tAmt" id="esewa-total-amount"
+                        value="0.00">
+                    <input type="hidden" name="amt" id="esewa-amount"
+                        value="0.00">
+                    <input type="hidden" name="txAmt" value="0.00">
+                    <input type="hidden" name="psc" value="0.00">
+                    <input type="hidden" name="pdc" value="0.00">
+                    <input type="hidden" name="scd"
+                        value="your_store_code_here">
+                    <!-- Replace with your store code -->
+                    <input type="hidden" name="su"
+                        value="http://yourwebsite.com/success">
+                    <!-- Replace with your success URL -->
+                    <input type="hidden" name="fu"
+                        value="http://yourwebsite.com/failure">
+                    <!-- Replace with your failure URL -->
+                </form>
+
+                <button class="normal" type="button">Proceed to
+                    checkout</button>
+            </div>
+        </section>
+
+        <footer class="section-p1">
+            <div class="col">
+                <img class="logo" src="img/logo.png" alt>
+                <h4>Contact</h4>
+                <p> <strong>Address:</strong> 562 Wellington Road, Street 32,
+                    San Francisco</p>
+                <p> <strong>Phone:</strong> +01 2222 365 /(+91) 01 2435 6789</p>
+                <p> <strong>Hours:</strong> 10:00 - 18:00, Mon-Sat</p>
+                <div class="follow">
+                    <h4>Follow Us</h4>
+                    <div class="icons">
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-pinterest-p"></i>
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <h4>About Us</h4>
+                <a href="#">About Us</a>
+                <a href="#">Delivery Information</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="col">
+                <h4>My Account</h4>
+                <a href="#">Sign In</a>
+                <a href="#">View Cart</a>
+                <a href="#">My Wishlist</a>
+                <a href="#">Track My Order</a>
+                <a href="#">Help</a>
+            </div>
+            <div class="col install">
+                <h4>Install App</h4>
+                <p>From App Store or Google Play.</p>
+                <div class="row">
+                    <img src="img/pay/app.jpg" alt>
+                    <img src="img/pay/play.jpg" alt>
+                </div>
+                <p>Secured Payment Gateway</p>
+                <img class="esewa" src="img/e_sewa.png" alt>
+            </div>
+        </footer>
+        <div class="copyright">
+            <p>&copy 2024, Aayush All rights preserved.</p>
+        </div>
+        <script>
+        const cartItems = [
+            { id: 76, name: "Cartoon Astronaut T-Shirt", price: 118.19, image: "img/product/f1.jpg" }
+        ];
+
+        function addToCart(item) {
+          const cartTableBody = document.querySelector('#cart-table tbody');
+         const row = document.createElement('tr');
+    
+           // Include the itemId in the row and pass it to the remove button
+         row.innerHTML = `
+         <td><span class="remove-btn" onclick="removeFromCart(this, ${item.id})">&#x2715;</span></td>
+         <td><img src="${item.image}" alt="" width="100"></td>
+         <td>${item.name}</td>
+         <td>$${item.price.toFixed(2)}</td>
+         <td><input type="number" value="1" min="1" onchange="updateSubtotal(this)"></td>
+         <td>$${item.price.toFixed(2)}</td>
+         `;
+    
+         cartTableBody.appendChild(row);
+         updateCartTotals();
+          }
+
+         
+          function removeFromCart(button, itemId) {
+            const row = button.closest('tr');
+          row.remove();
+          updateCartTotals();
+    
+         // Send AJAX request to remove item from database
+         fetch('remove_from_cart.php', {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json',
+          },
+         body: JSON.stringify({ id: itemId }),  // Pass the correct item ID
+         })
+     .then(response => response.json())
+     .then(data => {
+        if (data.success) {
+            console.log('Item removed from database successfully.');
+        } else {
+            console.error('Failed to remove item from database:', data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+        function updateSubtotal(input) {
+            const row = input.closest('tr');
+            const price = parseFloat(row.cells[3].innerText.replace('$', ''));
+            const quantity = parseInt(input.value);
+            const subtotalCell = row.cells[5];
+            subtotalCell.innerText = `$${(price * quantity).toFixed(2)}`;
+            updateCartTotals();
+        }
+
+        function updateCartTotals() {
+            let subtotal = 0;
+            document.querySelectorAll('#cart-table tbody tr').forEach(row => {
+                const subtotalText = row.cells[5].innerText;
+                subtotal += parseFloat(subtotalText.replace('$', ''));
+            });
+            document.getElementById('cart-subtotal').innerText = `$${subtotal.toFixed(2)}`;
+            document.getElementById('cart-total').innerText = `$${subtotal.toFixed(2)}`;
+        }
+
+        function applyCoupon() {
+            // Example coupon logic; you can expand this based on your requirements
+            const couponCode = document.getElementById('coupon-code').value;
+            if (couponCode === 'DISCOUNT10') {
+                const subtotal = parseFloat(document.getElementById('cart-subtotal').innerText.replace('$', ''));
+                const discount = subtotal * 0.10;
+                const newTotal = subtotal - discount;
+                document.getElementById('cart-total').innerText = `$${newTotal.toFixed(2)}`;
+            }
+        }
+
+        // Add items to cart as an example
+        cartItems.forEach(item => addToCart(item));
+        document.querySelector('.normal[type="button"]').addEventListener('click', function () {
+        // Redirect to login page before checkout
+        window.location.href = 'login.html';
+});
+
+    </script>
+    </body>
+</html>
